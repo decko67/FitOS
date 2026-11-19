@@ -23,6 +23,8 @@ while True:
 
             if resultado:
                 print("Registro terminado")
+            else:
+                print("Error al guardar")
 
         case "2":
             print("Escriba su Correo y contraseña")

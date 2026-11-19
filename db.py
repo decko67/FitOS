@@ -11,11 +11,15 @@ with sqlite3.connect("gym_db") as conexion:
 
         user_data = (nombre, correo, contraseña)
 
-        cursor.execute(query, user_data)
+        try:
+            cursor.execute(query, user_data)
 
-        conexion.commit()
+            conexion.commit()
 
-        return True
+            return True
+
+        except sqlite3.IntegrityError:
+            return False
 
     def limpiarBD():
         query = """

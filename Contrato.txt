@@ -1,0 +1,9 @@
+Contrato 
+
+registrar_usuario
+    Recibe = nombre, correo, contraseña
+    Devuelve = True si se guardo de manera extiosa, False si ya existe un correo registrado
+
+autenticar
+    Recibe = correo, contraseña
+    Devuelve = True si los dos parametros coinciden False si alguno de los dos no es el correcto
