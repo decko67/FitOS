@@ -31,3 +31,20 @@ with sqlite3.connect("gym_db") as conexion:
         conexion.commit()
 
         return True
+
+    def buscar_usuraio(correo, contraseña):
+        query = """
+        SELECT correo,password
+        FROM Users 
+        WHERE correo = ?
+        AND password = ?;
+        """
+        user_data = (correo, contraseña)
+
+        cursor.execute(query, user_data)
+
+        conexion.commit()
+
+        resultado = cursor.fetchone()
+
+        return resultado

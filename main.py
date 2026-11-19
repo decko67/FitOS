@@ -31,6 +31,13 @@ while True:
             correo = input("Correo: ")
             contraseña = input("Contraseña: ")
 
+            resultado = db.buscar_usuraio(correo, contraseña)
+
+            if resultado != None:
+                print("Ingresando...")
+            else:
+                print("Datos incorrectos")
+
         case "3":
             print("Seguro que quieres borrar la BD?")
             opcion = input("SI/NO: ")
