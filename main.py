@@ -1,76 +1,44 @@
-import sqlite3
+import db
 
-with sqlite3.connect("gym_db") as conexion:
-    cursor = conexion.cursor()
+while True:
+    print("Bienvenido a GymOs")
+    print("1.Registrar Usuario")
+    print("2.Ingresar")
+    print("3.Borrar datos")
+    print("0. Salir")
 
-    # Parte provicional para el CRUD de la BD
-    while True:
-        print("Bienvenido a GymOs")
-        print("1.Registrar Usuario")
-        print("2.Ingresar")
-        print("0. Salir")
+    opcion = input("Ingrese el numero de una opcion: ")
 
-        opcion = input("Ingrese el numero de una opcion: ")
+    match (opcion):
+        case "0":
+            print("Hasta luego...")
+            break
 
-        match (opcion):
-            case "0":
-                print("Hasta luego...")
-                break
+        case "1":
+            nombre = input("Nombre: ")
+            correo = input("Correo: ")
+            contraseña = input("Contraseña: ")
 
-            case "1":
-                nombre = input("Nombre: ")
-                correo = input("Correo: ")
-                contraseña = input("Contraseña: ")
+            resultado = db.registrar_usuario(nombre, correo, contraseña)
 
-                query = """
-                INSERT INTO Users(nombre,correo,contraseña)
-                VALUES (?,?,?);
-                """
+            if resultado:
+                print("Registro terminado")
 
-                user_data = (nombre, correo, contraseña)
+        case "2":
+            print("Escriba su Correo y contraseña")
+            correo = input("Correo: ")
+            contraseña = input("Contraseña: ")
 
-                cursor.execute(query, user_data)
+        case "3":
+            print("Seguro que quieres borrar la BD?")
+            opcion = input("SI/NO: ")
 
-                conexion.commit()
-
-                print("Usruario guardado Exitosamente")
-
-            case "2":
-                print("Escriba su Correo y contraseña")
-                correo = input("Correo: ")
-                contraseña = input("Contraseña: ")
-
-                query = """
-                SELECT * FROM Users
-                WHERE correo = ?;
-                """
-
-                user_data = (correo,)
-
-                cursor.execute(query, user_data)
-
-                # Optenemos el valor (o no)
-                resultado = cursor.fetchone()
-
-                if resultado == None:
-                    print("No se enocntraron coincidencias")
-                    print("¿Desea Registrarse?")
-                    print("1. SI")
-                    print("0. NO")
-                    opcion = input("Opcion: ")
-                    if opcion == "0":
-                        break
+            if opcion == "si":
+                resultado = db.limpiarBD()
+                if resultado:
+                    print("BD Limpia")
                 else:
-                    # Desempaquetamos la tupla
-                    id_usuario, nombre_usuario, correo_usuario, contraseña_usuario = (
-                        resultado
-                    )
+                    print("Error eliminando la BD")
 
-                    if correo_usuario == correo and contraseña_usuario == contraseña:
-                        print("Exito")
-
-                    ##
-
-                    # TERMINAR LA VERIFI CACION CON CONTRASEÑA
-
-                    ##
+            else:
+                break
