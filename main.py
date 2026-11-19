@@ -38,14 +38,13 @@ with sqlite3.connect("gym_db") as conexion:
             case "2":
                 print("Escriba su Correo y contraseña")
                 correo = input("Correo: ")
-                # contraseña = input("Contraseña: ")
+                contraseña = input("Contraseña: ")
 
                 query = """
                 SELECT * FROM Users
                 WHERE correo = ?;
                 """
 
-                # Con validar primero el correo esta bien para esta prueba
                 user_data = (correo,)
 
                 cursor.execute(query, user_data)
@@ -61,3 +60,17 @@ with sqlite3.connect("gym_db") as conexion:
                     opcion = input("Opcion: ")
                     if opcion == "0":
                         break
+                else:
+                    # Desempaquetamos la tupla
+                    id_usuario, nombre_usuario, correo_usuario, contraseña_usuario = (
+                        resultado
+                    )
+
+                    if correo_usuario == correo and contraseña_usuario == contraseña:
+                        print("Exito")
+
+                    ##
+
+                    # TERMINAR LA VERIFI CACION CON CONTRASEÑA
+
+                    ##
